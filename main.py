@@ -38,12 +38,12 @@ def clear_old_plots():
             for filename in os.listdir(PLOT_DIR):
                 file_path = os.path.join(PLOT_DIR, filename)
                 if os.path.isfile(file_path):
-                    # Remove files older than 1 hour (3600 seconds)
-                    if current_time - os.path.getmtime(file_path) > 3600:
+                    # Remove files older than 5 minute (300 seconds)
+                    if current_time - os.path.getmtime(file_path) > 300:
                         os.remove(file_path)
         except Exception as e:
             print(f"Error while clearing old plots: {e}")
-        time.sleep(3600)  # Run this cleanup every hour
+        time.sleep(300)  # Run this cleanup every five minutes
 
 # Start the thread to clear old plots
 threading.Thread(target=clear_old_plots, daemon=True).start()
