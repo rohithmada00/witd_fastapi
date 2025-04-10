@@ -6,3 +6,5 @@ uvicorn
 numpy
 seaborn
 python-multipart
+boto3
+python-dotenv
