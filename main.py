@@ -4,6 +4,7 @@ from eda_report_generator import EDAReportGenerator
 from s3_service import S3AccessService 
 from fastapi.middleware.cors import CORSMiddleware
 import pandas as pd
+import os
 
 app = FastAPI()
 s3_service = S3AccessService()
@@ -29,6 +30,7 @@ async def upload_dataset(file: UploadFile = File(...)):
         report_path = f"uploads/{uuid.uuid4()}.pdf"
         EDAReportGenerator.generate(df, report_path)
         s3_path = s3_service.upload_file(report_path)
+        os.remove(report_path)
 
         return {
             "resCode": 200,
@@ -49,3 +51,4 @@ async def upload_dataset(file: UploadFile = File(...)):
         }
 
 
+ 
